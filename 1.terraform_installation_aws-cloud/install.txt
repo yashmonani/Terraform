@@ -1,0 +1,16 @@
+#Connect to any server e.g. t3.micro
+#Best to run commands using root user -
+ sudo -i
+1. Go to - https://developer.hashicorp.com/terraform/install#linux
+2. Choose your package manager, mine Rhel
+3. Run given commands one-by-one-
+ sudo yum install -y yum-utils
+ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+ sudo yum -y install terraform
+4. Verify installation - 
+ terraform --version
+5. Enable tab auto completion - 
+ terraform -install-autocomplete
+ exec bash (It is required to reload shell)
+
+
