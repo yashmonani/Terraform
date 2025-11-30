@@ -1,0 +1,40 @@
+#Since writing IaC on plain text editor like vim, is not the best practice so instead we use Visual Studio code.
+1. Install Vsc (mine windows)
+#We wirte IaC on visual code and use providers like AWS to create resourceslike virtual machines, EBS, VPC, etc.
+
+2. Go to AWS console and for best practice, create an IAM user with full admin and generate its access keys (save these keys). This user will be a programatic access user. 
+
+3. Now take SSH to terraform server and run cmds, make sure you are using root user(sudo -i)- 
+ mkdir terraform (can create anywhere)
+ cd terraform
+ vim provider.tf and paste - 
+  provider "aws" {
+   region     = "region-1"
+   access_key = "access-key"
+   secret_key = "secret-key"
+ }
+paste keys of IAM user created earlier and set your console region and save file.
+run cmd-
+ terraform init - After running this cmd terraform will look for providers file and will generate an api to connect to provider.
+
+4. Now enable password based authentication for terraform server. goto - 
+ vim /etc/ssh/sshd_config and set - 
+ PasswordAuthentication yes
+ PermitRootLogin yes
+
+ vim /etc/ssh/sshd_config.d/50-cloud-init.conf and set - 
+ PasswordAuthentication yes
+
+save file and run - 
+ systemctl restart sshd
+
+5. Now set password for root user, run - 
+ passwd root and set strong password
+
+6. goto terraform directory and run - 
+ ls -la - to see hidden terraform files
+
+7. Open VSC and install terraform plugin like HCL, terraform.
+
+8. Now take through vsc , click open a remote window, connect to host, ssh root@server_ip, password, connect , press yes if asked and choose distros. 
+9. Open folder /root/terraform(path to your terraform directory) - we can see providers.tf , open it
